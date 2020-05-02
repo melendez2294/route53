@@ -1,0 +1,31 @@
+resource "aws_route53_zone" "test" {
+  name = "test.in"
+}
+
+resource "aws_route53_record" "www" {
+  zone_id = "${aws_route53_zone.test.zone_id}"
+  name = "thegroupseniordesign.com"
+  type = "A"
+  ttl = "300"
+  records = ["aws_eip"]
+}
+
+resource "aws_route53_record" "www-record" {
+  zone_id = "${aws_route53_zone.test.zone_id}"
+  name = "thegroupseniordesign.com"
+  type = "A"
+  ttl = "300"
+  records = ["aws_eip"]
+}
+
+resource "aws_route53_record" "www" {
+  zone_id = "${aws_route53_zone.test.zone_id}"
+  name = "thegroupseniordesign.com"
+  type = "A"
+  ttl = "300"
+  records = ["${aws_elb.test.dns_name}"]
+}
+
+ouput "ns-servers"{
+  value = "${aws_route53_zone.test.name-servers}"
+}
